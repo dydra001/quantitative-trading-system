@@ -248,4 +248,13 @@ I run both versions in parallel on separate PCs. The market tells me which is pr
 
 What makes this significant is that I built this entire system with no resources, no team, no institutional backing. I did this alone, from my home, with discipline and rigorous execution. The system runs 24/7 with sub-200ms latency from signal to execution. Every component was designed, coded, and tested by me.
 
+## Code Repository
+
+| Component | File |
+|-----------|------|
+| **Pine Script Strategy** | [`Bot.pine`](./Pinescript/Bot.pine) |
+| **Python Server** | [`server.py`](./Python/server.py) |
+| **Chrome Extension** | [`manifest.json`](./Chrome-Extension/manifest.json) |
+| **MT5 Expert Advisor** | [`SignalReader.mq5`](./MT5-EA/SignalReader.mq5) |
+
 

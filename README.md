@@ -254,7 +254,7 @@ What makes this significant is that I built this entire system with no resources
 | Component | File |
 |-----------|------|
 | **Pine Script Strategy** | [`Bot.pine`](./Pinescript/Bot.pine) |
-| **Python Server** | [`server.py`](./Python/server.py) |
+| **Python Server** | [`server.py`](./Python/server.py) | [`requirements.txt`](./Python/requirements.txt) |
 | **Chrome Extension** | [`manifest.json`](./Chrome-Extension/manifest.json) |
 | **MT5 Expert Advisor** | [`SignalReader.mq5`](./MT5-EA/SignalReader.mq5) |
 

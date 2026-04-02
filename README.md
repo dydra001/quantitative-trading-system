@@ -14,6 +14,9 @@ When all three align, the strategy enters a trade. The exit follows a strict 1:1
 - Both are equal distance from entry
 This means every trade risks the same amount it aims to gain. The 1:1 ratio simplifies risk management and makes the Martingale mathematics clean.
 
+## Detailed Documentation
+📄 [Download Full Pinescript](./Pinescript/Bot.pine)
+
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)
 - Martingale risk management with commission built-in

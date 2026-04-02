@@ -32,6 +32,20 @@ The Rules:
 - If I win → next trade resets to 1 unit
 - If I lose 7 times in a row → reset to 1 unit and continue
 
+**The Mathematics:**
+
+With a 50% win rate, here is what happens in 300 trades per instrument per week:
+
+- Most trades win immediately → profit +1 unit
+- Some trades lose 1 then win → profit  +2 unit
+- Some lose 2 then win → profit +3 unit
+- Some lose 3 then win → profit +4 unit
+- Some lose 4 then win → profit +5 unit
+- Some lose 5 then win → profit +6 unit
+- Some lose 6 then win → profit +7 unit
+- Very rarely, 7 losses in a row → loss of -247 unit
+
+Because the win rate is above 50%, the profits from recovery sequences outweigh the rare 7-loss events.
 
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)

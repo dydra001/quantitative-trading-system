@@ -25,13 +25,7 @@ I risk small amounts. If I lose, I increase the next trade. When I finally win, 
 
 The Risk Progression:
 
-Step 1: Risk 1 unit
-Step 2: Risk 3 units
-Step 3: Risk 7 units
-Step 4: Risk 15 units
-Step 5: Risk 31 units
-Step 6: Risk 63 units
-Step 7: Risk 127 units
+Step 1: Risk 1 unit | Step 2: Risk 3 units | Step 3: Risk 7 units | Step 4: Risk 15 units | Step 5: Risk 31 units | Step 6: Risk 63 units | Step 7: Risk 127 units
 
 The Rules:
 - If I lose → next trade uses higher risk

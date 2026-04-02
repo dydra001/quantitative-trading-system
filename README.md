@@ -24,4 +24,4 @@ Fully automated systematic trading strategy built from scratch.
 - MQL5 (MetaTrader)
 
 ## Author
-[Your Name] | Self-taught quantitative system builder
+[Iheb Mhedhbi] | Self-taught quantitative system builder

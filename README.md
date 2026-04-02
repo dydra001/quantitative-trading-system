@@ -146,6 +146,20 @@ I run the strategy on six forex instruments to diversify risk:
 
 Each instrument has its own optimized parameters to account for different volatility profiles. I track correlation to ensure true diversification. The 1:1 RR applies identically across all instruments.
 
+## AUTOMATION INFRASTRUCTURE - FULL STACK
+
+I built a complete end-to-end automation stack:
+
+**1. Pine Script Strategy:**
+
+Outputs signals in format: "OpenB|D50|L0.001|S1"
+where 
+- “B” is the direction buy or sell ( “B” for buy and “S” for sell )
+  - “D50” is the stop loss and take profit distance in ticks
+  - “L0.001” is the position size
+  - “S1” the number of step of the martingale
+- Includes step number for Martingale tracking
+- Fixed 1:1 risk-reward built in
 
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)

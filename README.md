@@ -104,7 +104,8 @@ I built a complete optimization framework to find the best parameters for each i
    - Pin Bar: true/false
    - Engulfing: true/false
 
-<img width="1843" height="1019" alt="EURUSD_parameters" src="https://github.com/user-attachments/assets/dc50febd-11a0-4b0d-a005-7681625d35df" />
+<img width="512" height="282" alt="unnamed" src="https://github.com/user-attachments/assets/193c26c0-daae-4a81-b558-9d6a58703f66" />
+
 
 
 

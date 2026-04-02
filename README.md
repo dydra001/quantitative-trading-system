@@ -4,15 +4,19 @@
 Fully automated systematic trading strategy built from scratch.
 
 ## The Strategy Logic - 1:1 RISK-REWARD:
+
 I coded a Pine Script strategy that uses three confirmations to enter trades on a 1-minute timeframe:
+
 - Trend Direction: Price above or below the input-period EMA 
 - Key Level: Price touches the Donchian Channel
 - Price Action Confirmation: Pin bar (body ≤33% of range, wick ≥2x body) OR engulfing pattern (close beyond previous high/low, open opposite)
 
   When all three align, the strategy enters a trade. The exit follows a strict 1:1 risk-reward ratio:
+  
 - Stop loss = entry ± stop distance
 - Take profit = entry ∓ stop distance
 - Both are equal distance from entry
+  
 This means every trade risks the same amount it aims to gain. The 1:1 ratio simplifies risk management and makes the Martingale mathematics clean.
 
 **Detailed Documentation**

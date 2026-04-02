@@ -47,6 +47,23 @@ With a 50% win rate, here is what happens in 300 trades per instrument per week:
 
 Because the win rate is above 50%, the profits from recovery sequences outweigh the rare 7-loss events.
 
+**What This Means Per Trade:**
+
+Every trade is designed to earn a minimum of 0.8 unit net after commission. Whether I win or lose, the structure ensures that when I eventually win, I earn more than I lost.
+
+**The Problem - Spread and Commission:**
+
+In normal accounts, spread and commission eat profits. I solved this by:
+
+1. Choosing a raw spread account with near-zero spread and 6$ commission per lot.
+2. Using a broker that allows nano lots (0.001 minimum)
+3. Creating a table that builds commission into every calculation
+
+**The Solution - My Normalization Table:**
+
+I created a table that calculates exact lot sizes for every step and every possible stop distance. Commission is included. Net profit after commission is always at least $0.40 per winning sequence.
+
+
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)
 - Martingale risk management with commission built-in

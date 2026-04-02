@@ -18,6 +18,27 @@ This means every trade risks the same amount it aims to gain. The 1:1 ratio simp
 ## Detailed Documentation
 📄 [Download Full Pinescript](./Pinescript/Bot.pine)
 
+## RISK MANAGEMENT - MARTINGALE WITH 1:1 RR AND COMMISSION NORMALIZATION:
+First, understand the core idea:
+
+I risk small amounts. If I lose, I increase the next trade. When I finally win, I recover all previous losses AND make a profit.
+
+The Risk Progression:
+
+Step 1: Risk 1 unit
+Step 2: Risk 3 units
+Step 3: Risk 7 units
+Step 4: Risk 15 units
+Step 5: Risk 31 units
+Step 6: Risk 63 units
+Step 7: Risk 127 units
+
+The Rules:
+- If I lose → next trade uses higher risk
+- If I win → next trade resets to 1 unit
+- If I lose 7 times in a row → reset to 1 unit and continue
+
+
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)
 - Martingale risk management with commission built-in

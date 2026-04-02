@@ -86,6 +86,27 @@ Each instrument generates 200-300 trades per week. With 6 instruments, I have 1,
 
 But because instruments are diversified across different asset classes and currencies, losing streaks rarely happen at the same time across all instruments.
 
+**The Bottom Line:**
+
+The system is built to profit from above 50% win rate using Martingale recovery. Commission is built into every trade through a normalization table. Nano lots allow precise position sizing. Eight instruments provide diversification.
+
+## Optimization Framework - The Metric System
+
+Because market conditions change, I optimize each instrument once per week.
+I built a complete optimization framework to find the best parameters for each instrument. The process:
+
+**1. INPUT PARAMETERS:**
+
+   - EMA Length: 20-100 (step 5)
+   - Donchian Length: 10-40 (step 5)
+   - ATR Length: 7-21 (step 2)
+   - ATR Multiplier: 2-3 (step 0.2)
+   - Pin Bar: true/false
+   - Engulfing: true/false
+
+<img width="1843" height="1019" alt="EURUSD_parameters" src="https://github.com/user-attachments/assets/dc50febd-11a0-4b0d-a005-7681625d35df" />
+
+
 
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)

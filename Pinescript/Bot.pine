@@ -1,1 +1,212 @@
+//@version=5
+strategy("1-Min Scalper (ATR Stop + Bucket Martingale)", overlay=true, initial_capital=10000, default_qty_type=strategy.fixed, default_qty_value=1, pyramiding=0)
 
+// --- Inputs ---
+ema_len        = input.int(50, "EMA Length")
+donchian_len   = input.int(20, "Donchian Length (Key Level)")
+use_pin        = input.bool(true, "Use Pin Bar Pattern")
+use_engulf     = input.bool(true, "Use Engulfing Pattern")
+atr_len        = input.int(14, "ATR Length")
+atr_mult       = input.float(1.5, "ATR Multiplier for Stop")
+point_value    = input.float(10, "Point Value ($ per 1 point/pip per contract)")
+
+// --- Time Control (UTC) ---
+utcHour   = hour(time, "UTC")
+utcMinute = minute(time, "UTC")
+close_time = (utcHour == 20 and utcMinute >= 50)
+no_trade = (utcHour == 20 and utcMinute >= 50) or (utcHour == 21 and utcMinute < 5)
+
+// --- Calculations ---
+ema = ta.ema(close, ema_len)
+donch_high = ta.highest(high, donchian_len)
+donch_low  = ta.lowest(low, donchian_len)
+atr = ta.atr(atr_len)
+
+// --- Pattern Definitions ---
+is_pin_bar(candle_high, candle_low, candle_close, candle_open) =>
+    body = math.abs(candle_close - candle_open)
+    upper_wick = candle_high - math.max(candle_close, candle_open)
+    lower_wick = math.min(candle_close, candle_open) - candle_low
+    body <= (candle_high - candle_low) * 0.33 and (lower_wick > body * 2 or upper_wick > body * 2)
+
+is_bull_engulf() =>
+    close > high[1] and open < close[1]
+
+is_bear_engulf() =>
+    close < low[1] and open > close[1]
+
+// --- Entry Conditions ---
+long_trend   = close > ema
+long_level   = low <= donch_low + (donch_low * 0.001)
+long_pattern = (use_pin and is_pin_bar(high, low, close, open) and close > open) or (use_engulf and is_bull_engulf())
+long_cond    = long_trend and long_level and long_pattern and not no_trade
+
+short_trend   = close < ema
+short_level   = high >= donch_high - (donch_high * 0.001)
+short_pattern = (use_pin and is_pin_bar(high, low, close, open) and close < open) or (use_engulf and is_bear_engulf())
+short_cond    = short_trend and short_level and short_pattern and not no_trade
+
+// --- Force Close at 20:50 UTC ---
+if (close_time and strategy.position_size != 0)
+    strategy.close_all(comment="Daily Close")
+
+// --- Martingale progression ---
+var float[] martingale = array.from(0.5, 1.7, 4.5, 11.5, 27.7, 67.3, 164 )
+var int idx = 0
+var int last_closed_trade = -1
+
+// --- Track stop loss ticks for each trade ---
+var float[] stop_ticks_list = array.new_float()
+var int trade_counter = 0
+
+// --- Update martingale index after trade closes ---
+if strategy.closedtrades > 0
+    last = strategy.closedtrades - 1
+    if last != last_closed_trade
+        profit = strategy.closedtrades.profit(last)
+        
+        if profit > 0
+            idx := 0 // Reset on win
+        else
+            idx := idx + 1 // Move to next step on loss
+            
+            // RESET TO START IF WE EXCEED THE ARRAY (After the 7th loss)
+            if idx >= array.size(martingale)
+                idx := 0
+        
+        last_closed_trade := last
+
+// --- Position sizing ---
+stop_dist_raw = atr * atr_mult
+
+// --- Convert to ticks ---
+tick_size = syminfo.mintick
+stop_ticks_raw = stop_dist_raw / tick_size
+
+// --- BUCKET SYSTEM: Determine capped stop ---
+var float capped_stop_ticks = 0.0
+
+if stop_ticks_raw >= 250
+    capped_stop_ticks := 250
+else if stop_ticks_raw >= 166
+    capped_stop_ticks := 166
+else if stop_ticks_raw >= 125
+    capped_stop_ticks := 125
+else if stop_ticks_raw >= 100
+    capped_stop_ticks := 100
+else if stop_ticks_raw >= 83
+    capped_stop_ticks := 83
+else if stop_ticks_raw >= 71
+    capped_stop_ticks := 71
+else if stop_ticks_raw >= 62
+    capped_stop_ticks := 62
+else if stop_ticks_raw >= 55
+    capped_stop_ticks := 55
+else if stop_ticks_raw >= 50
+    capped_stop_ticks := 50
+else if stop_ticks_raw >= 45
+    capped_stop_ticks := 45
+else if stop_ticks_raw >= 41
+    capped_stop_ticks := 41
+else if stop_ticks_raw >= 38
+    capped_stop_ticks := 38
+else if stop_ticks_raw >= 35
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 33
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 31
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 29
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 27
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 25
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 23
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 21
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 20
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 18
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 17
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 16
+    capped_stop_ticks := 35
+else if stop_ticks_raw >= 15
+    capped_stop_ticks := 35
+else
+    // Stop < 15 ticks: NO TRADE
+    capped_stop_ticks := 0
+
+// --- Apply capped stop ---
+stop_dist = capped_stop_ticks * tick_size
+risk_dollars = array.get(martingale, idx)
+
+// --- Record stop ticks when trade is opened (only if >= 15) ---
+if (long_cond or short_cond) and strategy.position_size == 0 and capped_stop_ticks >= 15
+    array.push(stop_ticks_list, capped_stop_ticks)
+    trade_counter := trade_counter + 1
+
+// --- Calculate statistics ---
+var float avg_stop_ticks = 0.0
+var float max_stop_ticks = 0.0
+var float min_stop_ticks = 0.0
+
+if array.size(stop_ticks_list) > 0
+    avg_stop_ticks := array.avg(stop_ticks_list)
+    max_stop_ticks := array.max(stop_ticks_list)
+    min_stop_ticks := array.min(stop_ticks_list)
+
+// --- Display Table ---
+var table stats_table = table.new(position.top_right, 2, 7, border_width=2, border_color=color.yellow, bgcolor=color.black)
+
+if barstate.islast
+    table.cell(stats_table, 0, 0, "STOP LOSS STATS", text_color=color.yellow, text_size=size.large, bgcolor=color.black)
+    table.cell(stats_table, 0, 1, "Total Trades:", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 1, str.tostring(trade_counter), text_color=color.lime, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 0, 2, "Avg Stop (ticks):", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 2, str.tostring(avg_stop_ticks, "#.##"), text_color=color.lime, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 0, 3, "Max Stop (ticks):", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 3, str.tostring(max_stop_ticks, "#.##"), text_color=color.red, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 0, 4, "Min Stop (ticks):", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 4, str.tostring(min_stop_ticks, "#.##"), text_color=color.green, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 0, 5, "Current Stop:", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 5, str.tostring(capped_stop_ticks, "#.##"), text_color=color.orange, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 0, 6, "Martingale Step:", text_color=color.white, text_size=size.normal, bgcolor=color.black)
+    table.cell(stats_table, 1, 6, str.tostring(idx + 1), text_color=color.orange, text_size=size.normal, bgcolor=color.black)
+
+// --- Long Entry (only if stop >= 15 ticks) ---
+if (long_cond and strategy.position_size == 0 and capped_stop_ticks >= 15)
+    entry = close
+    stop = entry - stop_dist
+    target = entry + stop_dist
+    risk_per_unit = stop_dist * point_value
+    if risk_per_unit > 0
+        qty = risk_dollars / risk_per_unit
+		// Entry name for bridge
+        entry_name = "B|"  + "D" + str.tostring(capped_stop_ticks) + "|L" + str.tostring(qty/10000,"#.##") + "|S" + str.tostring(idx+1)
+        strategy.entry(entry_name, strategy.long, qty=qty)
+        strategy.exit("XL", entry_name, stop=stop, limit=target)
+
+// --- Short Entry (only if stop >= 15 ticks) ---
+if (short_cond and strategy.position_size == 0 and capped_stop_ticks >= 15)
+    entry = close
+    stop = entry + stop_dist
+    target = entry - stop_dist
+    risk_per_unit = stop_dist * point_value
+    if risk_per_unit > 0
+        qty = risk_dollars / risk_per_unit
+		// Entry name for bridge
+        entry_name = "S|" +  "D" + str.tostring(capped_stop_ticks) + "|L" + str.tostring(qty/10000,"#.##")+ "|S" + str.tostring(idx+1)
+        strategy.entry(entry_name, strategy.short, qty=qty)
+        strategy.exit("XS", entry_name, stop=stop, limit=target)
+
+// --- Plotting ---
+plot(ema, color=color.new(color.blue, 70), linewidth=2, title="50 EMA")
+h = plot(donch_high, color=color.new(color.gray, 80), title="Donchian High")
+l = plot(donch_low,  color=color.new(color.gray, 80), title="Donchian Low")
+fill(h, l, color=color.new(color.gray, 90))
+plotshape(long_cond,  title="Long Signal",  location=location.belowbar, color=color.green, style=shape.triangleup, size=size.small)
+plotshape(short_cond, title="Short Signal", location=location.abovebar, color=color.red,   style=shape.triangledown, size=size.small)

@@ -129,6 +129,9 @@ I use the OptiPie Chrome extension which automates testing all 11,424 combinatio
    - Trade count (20%) - statistical significance
    - Loss streak penalty - risk of blow-up
 
+**4. PARAMETER SELECTION:**
+  
+   The server sorts all combinations by score, selects the highest, and saves it to a file. I then manually update the Pine Script inputs with the winning parameters for the coming week.
 
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)

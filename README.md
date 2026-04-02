@@ -161,6 +161,65 @@ where
 - Includes step number for Martingale tracking
 - Fixed 1:1 risk-reward built in
 
+<img width="500" height="512" alt="unnamed (2)" src="https://github.com/user-attachments/assets/74d1423a-6d1f-4308-bdea-a7a217e757aa" />
+
+**2. Chrome Extension (JavaScript):**
+
+   - Reads TradingView Strategy Tester table
+   - Detects new signals (OpenB|D...|L...|S...)
+   - Parses direction, stop ticks, lot size, step
+   - Sends to local server via HTTP POST
+   - Scans every 100ms for real-time detection
+
+<img width="512" height="296" alt="unnamed (3)" src="https://github.com/user-attachments/assets/ec27e359-d95d-49be-94ec-e00fc64b81ee" />
+
+**3. Python Flask Server:**
+
+   - Receives signals at /signal endpoint
+   - Maintains signal queue with status tracking
+   - Writes to file for MT5 reading
+   - Handles optimization results at /optimization endpoint
+   - Calculates scores and saves best parameters
+   - Includes status endpoint for monitoring
+
+<img width="512" height="296" alt="unnamed (3)" src="https://github.com/user-attachments/assets/101b119b-0595-4747-8e50-6493e70b203f" />
+
+**4. MT5 Expert Advisor (MQL5):**
+
+   - Uses WebRequest to get signals from server
+   - Only processes "NEW" signals to avoid duplicates
+   - Parses direction, stop ticks, lot size, step
+   - Calculates stop loss and take profit (1:1 RR)
+   - Places market orders with proper position sizing
+   - Marks signals as "PROCESSED" after execution
+   - Includes position check to prevent multiple trades on same instrument
+
+<img width="500" height="512" alt="unnamed (5)" src="https://github.com/user-attachments/assets/6e3682a3-4c44-4d76-996b-1a6241396913" />
+
+## SKILLS & TECHNOLOGIES USED
+
+To build this system, I used:
+
+**Strategy Development**
+Pine Script (TradingView) | 1-minute scalping strategy with 3-confirmation entry logic, Martingale progression, 1:1 risk-reward
+**Automation** 
+Chrome Extension (JavaScript) | Real-time signal detector reading Strategy Tester table, parsing signals, HTTP communication |
+**Backend Server**  
+Python (Flask) | Signal queue management, optimization scoring algorithm, file I/O, REST API endpoints |
+**Trade Execution** 
+MQL5 (MetaTrader) | Expert Advisor with WebRequest, position management, 1:1 stop/target calculation, duplicate prevention |
+**Optimization**
+OptiPie Extension + Custom Python | Automated testing of 4,320 parameter combinations per instrument, scoring system with loss streak penalties |
+**Risk Modeling**
+Excel / Custom Tables | Martingale progression tables with commission built-in, stop loss buckets, net P&L calculations |
+
+What This Demonstrates:
+
+- Full-stack development (frontend, backend, trading platforms)
+- Quantitative reasoning (scoring systems, probability, risk models)
+- Mathematical rigor (Martingale mathematics, loss streak probability, expected value)
+- Resourcefulness (built everything alone with no external funding)
+
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)
 - Martingale risk management with commission built-in

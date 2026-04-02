@@ -72,6 +72,20 @@ I created a table that calculates exact lot sizes for every step and every possi
 <img width="512" height="191" alt="step6" src="https://github.com/user-attachments/assets/f68ea738-49b2-4b02-a877-bfbd1e124922" />
 <img width="512" height="191" alt="step7" src="https://github.com/user-attachments/assets/0ebd1c6d-52b7-4c27-873d-44a26df54950" />
 
+**Example from Step 1:**
+
+- If stop is 50 ticks → trade 0.010 lots → risk $0.50 → commission $0.06 → net win $0.44, net loss $0.56
+- If stop is 35 ticks → trade 0.014 lots → risk $0.49 → commission $0.084 → net win $0.406, net loss $0.574
+
+The result is the same: I risk approximately $0.50 per trade at Step 1, and I earn approximately $0.44 when I win. The table ensures this consistency across all stop distances.
+
+I run this system on 6 instruments simultaneously:
+- EURUSD, GBPUSD, AUDUSD, USDCHF, NZDUSD, EURGBP
+
+Each instrument generates 200-300 trades per week. With 6 instruments, I have 1,200-1,800 trades per week. The probability of a 7-loss streak on any single instrument is about 0.67% per sequence. With this many trades, I expect one every week or two.
+
+But because instruments are diversified across different asset classes and currencies, losing streaks rarely happen at the same time across all instruments.
+
 
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)

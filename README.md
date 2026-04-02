@@ -8,7 +8,7 @@ I coded a Pine Script strategy that uses three confirmations to enter trades on 
 - Trend Direction: Price above or below the input-period EMA 
 - Key Level: Price touches the Donchian Channel
 - Price Action Confirmation: Pin bar (body ≤33% of range, wick ≥2x body) OR engulfing pattern (close beyond previous high/low, open opposite)
-When all three align, the strategy enters a trade. The exit follows a strict 1:1 risk-reward ratio:
+*When all three align, the strategy enters a trade. The exit follows a strict 1:1 risk-reward ratio:
 - Stop loss = entry ± stop distance
 - Take profit = entry ∓ stop distance
 - Both are equal distance from entry

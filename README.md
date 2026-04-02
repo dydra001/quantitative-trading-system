@@ -16,6 +16,7 @@ I coded a Pine Script strategy that uses three confirmations to enter trades on 
 This means every trade risks the same amount it aims to gain. The 1:1 ratio simplifies risk management and makes the Martingale mathematics clean.
 
 **Detailed Documentation**
+
 📄 [Download Full Pinescript](./Pinescript/Bot.pine)
 
 ## RISK MANAGEMENT - MARTINGALE WITH 1:1 RR AND COMMISSION NORMALIZATION:

@@ -133,6 +133,20 @@ I use the OptiPie Chrome extension which automates testing all 11,424 combinatio
   
    The server sorts all combinations by score, selects the highest, and saves it to a file. I then manually update the Pine Script inputs with the winning parameters for the coming week.
 
+## PORTFOLIO - 6 INSTRUMENTS WITH CORRELATION ANALYSIS
+
+I run the strategy on six forex instruments to diversify risk:
+
+1. **EURUSD** - base, highest liquidity
+2. **GBPUSD** - volatile, good for scalping
+3. **AUDUSD** - commodity currency, Asia session
+4. **USDCHF** - inverse to EURUSD, natural hedge
+5. **NZDUSD** - additional commodity currency
+6. **EURGBP** - cross pair, low correlation to USD
+
+Each instrument has its own optimized parameters to account for different volatility profiles. I track correlation to ensure true diversification. The 1:1 RR applies identically across all instruments.
+
+
 **Key Features:**
 - 3-factor entry model (trend + mean reversion + pattern)
 - Martingale risk management with commission built-in

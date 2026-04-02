@@ -201,16 +201,26 @@ where
 To build this system, I used:
 
 **Strategy Development**
+
 Pine Script (TradingView) | 1-minute scalping strategy with 3-confirmation entry logic, Martingale progression, 1:1 risk-reward
-**Automation** 
+
+**Automation**
+
 Chrome Extension (JavaScript) | Real-time signal detector reading Strategy Tester table, parsing signals, HTTP communication |
-**Backend Server**  
+**Backend Server**
+
 Python (Flask) | Signal queue management, optimization scoring algorithm, file I/O, REST API endpoints |
+
 **Trade Execution** 
+
 MQL5 (MetaTrader) | Expert Advisor with WebRequest, position management, 1:1 stop/target calculation, duplicate prevention |
+
 **Optimization**
+
 OptiPie Extension + Custom Python | Automated testing of 4,320 parameter combinations per instrument, scoring system with loss streak penalties |
+
 **Risk Modeling**
+
 Excel / Custom Tables | Martingale progression tables with commission built-in, stop loss buckets, net P&L calculations |
 
 What This Demonstrates:
@@ -220,20 +230,15 @@ What This Demonstrates:
 - Mathematical rigor (Martingale mathematics, loss streak probability, expected value)
 - Resourcefulness (built everything alone with no external funding)
 
-**Key Features:**
-- 3-factor entry model (trend + mean reversion + pattern)
-- Martingale risk management with commission built-in
-- 1:1 risk-reward ratio
-- Sub-200ms latency from signal to execution
+## WHY THIS MATTERS - THE STRATEGY ARBITRAGE INSIGHT
 
-## Detailed Documentation
-📄 [Download Full Project PDF](./docs/Detailed.pdf)
+The most important insight from this project is that with a win rate near 50% and 1:1 risk-reward, one of two strategies must be profitable:
 
-## Technologies
-- Pine Script (TradingView)
-- Python (Flask, REST APIs)
-- JavaScript (Chrome Extensions)
-- MQL5 (MetaTrader)
+- If win rate > 50%, Martingale on losses works
+- If win rate < 50%, Martingale on wins works
 
-## Author
-[Iheb Mhedhbi] | Self-taught quantitative system builder
+I run both versions in parallel on separate PCs. The market tells me which is profitable. This eliminates the need to guess whether my strategy has edge - the math guarantees one version works.
+
+What makes this significant is that I built this entire system with no resources, no team, no institutional backing. I did this alone, from my home, with discipline and rigorous execution. The system runs 24/7 with sub-200ms latency from signal to execution. Every component was designed, coded, and tested by me.
+
+

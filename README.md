@@ -66,6 +66,11 @@ I created a table that calculates exact lot sizes for every step and every possi
 
 <img width="512" height="205" alt="step1" src="https://github.com/user-attachments/assets/854199ca-4833-41ce-8b05-c211be948fb9" />
 <img width="512" height="192" alt="step2" src="https://github.com/user-attachments/assets/26732ecc-48b4-41fe-8c7d-276aee8d7cca" />
+<img width="512" height="191" alt="step3" src="https://github.com/user-attachments/assets/daf2cffc-3346-424b-8696-3b8d0228866f" />
+<img width="512" height="191" alt="step4" src="https://github.com/user-attachments/assets/063bf1fa-ea25-406c-8e57-6890da1ca17f" />
+<img width="512" height="193" alt="step5" src="https://github.com/user-attachments/assets/0cccbe47-8a6b-4a52-bff5-609349b0b9c5" />
+<img width="512" height="191" alt="step6" src="https://github.com/user-attachments/assets/f68ea738-49b2-4b02-a877-bfbd1e124922" />
+<img width="512" height="191" alt="step7" src="https://github.com/user-attachments/assets/0ebd1c6d-52b7-4c27-873d-44a26df54950" />
 
 
 **Key Features:**

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 550px;
+            font-family: 'Segoe UI', monospace;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        
+        .header {
+            background: #16213e;
+            padding: 12px;
+            text-align: center;
+            border-bottom: 2px solid #0f3460;
+        }
+        
+        .header h3 {
+            font-size: 14px;
+        }
+        
+        .header p {
+            font-size: 10px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #0f3460;
+            font-size: 12px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .stat-value.buy { color: #4caf50; }
+        .stat-value.sell { color: #f44336; }
+        
+        .controls {
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+            background: #16213e;
+            border-bottom: 1px solid #0f3460;
+        }
+        
+        button {
+            background: #0f3460;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        
+        button:hover {
+            background: #1e4a7a;
+        }
+        
+        .clear-btn {
+            background: #4a2c2c;
+            margin-left: auto;
+        }
+        
+        .clear-btn:hover {
+            background: #6a3c3c;
+        }
+        
+        .server-status {
+            background: #2d2d2d;
+            padding: 6px 12px;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #3c3c3c;
+        }
+        
+        .status-online {
+            color: #4caf50;
+        }
+        
+        .status-offline {
+            color: #f44336;
+        }
+        
+        .signal-list {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+        
+        .signal-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid #2d2d2d;
+            border-left: 3px solid;
+        }
+        
+        .signal-item.BUY {
+            border-left-color: #4caf50;
+        }
+        
+        .signal-item.SELL {
+            border-left-color: #f44336;
+        }
+        
+        .signal-time {
+            color: #6a9955;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+        
+        .signal-main {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 12px;
+            color: #4c9aff;
+            margin-bottom: 6px;
+        }
+        
+        .signal-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 10px;
+        }
+        
+        .detail {
+            background: #2d2d2d;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .empty {
+            padding: 40px;
+            text-align: center;
+            color: #6a9955;
+        }
+        
+        .footer {
+            background: #16213e;
+            padding: 6px;
+            text-align: center;
+            font-size: 9px;
+            color: #666;
+            border-top: 1px solid #0f3460;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0f3460;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4c9aff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3>📊 SIGNAL TO MT5</h3>
+        <p>Detecting: OpenB|D62|L0.08|S1 → BUY 62 ticks 0.08 lots Step 1</p>
+    </div>
+    
+    <div class="server-status">
+        <span>🌐 Server Status:</span>
+        <span id="serverStatus" class="status-offline">Checking...</span>
+    </div>
+    
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value" id="totalCount">0</div>
+            <div>Total</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value buy" id="buyCount">0</div>
+            <div>BUY</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value sell" id="sellCount">0</div>
+            <div>SELL</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" id="todayCount">0</div>
+            <div>Today</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button id="refreshBtn">🔄 Refresh</button>
+        <button id="clearBtn" class="clear-btn">🗑️ Clear All</button>
+    </div>
+    
+    <div class="signal-list" id="signalList">
+        <div class="empty">📭 No signals yet<br>Waiting for OpenB|D...|L...|S... signals</div>
+    </div>
+    
+    <div class="footer">
+        Signals sent to http://localhost:8080/signal | Server must be running
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

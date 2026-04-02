@@ -65,6 +65,7 @@ In normal accounts, spread and commission eat profits. I solved this by:
 I created a table that calculates exact lot sizes for every step and every possible stop distance. Commission is included. Net profit after commission is always at least $0.40 per winning sequence.
 
 <img width="512" height="205" alt="step1" src="https://github.com/user-attachments/assets/854199ca-4833-41ce-8b05-c211be948fb9" />
+<img width="512" height="192" alt="step2" src="https://github.com/user-attachments/assets/26732ecc-48b4-41fe-8c7d-276aee8d7cca" />
 
 
 **Key Features:**

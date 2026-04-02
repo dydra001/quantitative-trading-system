@@ -19,7 +19,8 @@ This means every trade risks the same amount it aims to gain. The 1:1 ratio simp
 
 📄 [Download Full Pinescript](./Pinescript/Bot.pine)
 
-## RISK MANAGEMENT - MARTINGALE WITH 1:1 RR AND COMMISSION NORMALIZATION:
+## Risk Management - Martingale with 1:1 RR and Commission Normalization:
+
 First, understand the core idea:
 
 I risk small amounts. If I lose, I increase the next trade. When I finally win, I recover all previous losses AND make a profit.
@@ -95,7 +96,7 @@ The system is built to profit from above 50% win rate using Martingale recovery.
 Because market conditions change, I optimize each instrument once per week.
 I built a complete optimization framework to find the best parameters for each instrument. The process:
 
-**1. INPUT PARAMETERS:**
+**1. Inout Parameters:**
 
    - EMA Length: 20-100 (step 5)
    - Donchian Length: 10-40 (step 5)
@@ -106,13 +107,13 @@ I built a complete optimization framework to find the best parameters for each i
 
 <img width="512" height="282" alt="unnamed" src="https://github.com/user-attachments/assets/193c26c0-daae-4a81-b558-9d6a58703f66" />
 
-**2. OPTIMIZATION EXECUTION:**
+**2. Otimization execution:**
 
 I use the OptiPie Chrome extension which automates testing all 11,424 combinations per instrument. It loops through each combination, runs the backtest on TradingView, and records results.
 
 <img width="512" height="282" alt="unnamed (1)" src="https://github.com/user-attachments/assets/e2f12e05-e0ea-4f38-a451-76da98273452" />
 
-**3. SCORING ALGORITHM (Python Server):**
+**3. Scoring algorithm (Python Server):**
 
    I built a Python Flask server that receives optimization results and calculates a score for each combination:
 
@@ -129,11 +130,11 @@ I use the OptiPie Chrome extension which automates testing all 11,424 combinatio
    - Trade count (20%) - statistical significance
    - Loss streak penalty - risk of blow-up
 
-**4. PARAMETER SELECTION:**
+**4. Parameter selection:**
   
    The server sorts all combinations by score, selects the highest, and saves it to a file. I then manually update the Pine Script inputs with the winning parameters for the coming week.
 
-## PORTFOLIO - 6 INSTRUMENTS WITH CORRELATION ANALYSIS
+## Portfolio - 6 Instruments with Correlation Analysis
 
 I run the strategy on six forex instruments to diversify risk:
 
@@ -146,7 +147,7 @@ I run the strategy on six forex instruments to diversify risk:
 
 Each instrument has its own optimized parameters to account for different volatility profiles. I track correlation to ensure true diversification. The 1:1 RR applies identically across all instruments.
 
-## AUTOMATION INFRASTRUCTURE - FULL STACK
+## Automation Infrastructure - FULL STACK
 
 I built a complete end-to-end automation stack:
 
@@ -196,7 +197,7 @@ where
 
 <img width="500" height="512" alt="unnamed (5)" src="https://github.com/user-attachments/assets/6e3682a3-4c44-4d76-996b-1a6241396913" />
 
-## SKILLS & TECHNOLOGIES USED
+## Skills & Technologies used
 
 To build this system, I used:
 
@@ -230,7 +231,7 @@ What This Demonstrates:
 - Mathematical rigor (Martingale mathematics, loss streak probability, expected value)
 - Resourcefulness (built everything alone with no external funding)
 
-## WHY THIS MATTERS - THE STRATEGY ARBITRAGE INSIGHT
+## Why This Matters - The Strategy Arbitrage Insight
 
 The most important insight from this project is that with a win rate near 50% and 1:1 risk-reward, one of two strategies must be profitable:
 

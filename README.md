@@ -3,7 +3,7 @@
 ## System Overview
 Fully automated systematic trading strategy built from scratch.
 
-**THE STRATEGY LOGIC - 1:1 RISK-REWARD:**
+## THE STRATEGY LOGIC - 1:1 RISK-REWARD:
 I coded a Pine Script strategy that uses three confirmations to enter trades on a 1-minute timeframe:
 - Trend Direction: Price above or below the input-period EMA 
 - Key Level: Price touches the Donchian Channel

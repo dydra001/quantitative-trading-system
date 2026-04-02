@@ -189,7 +189,8 @@ where
    - Calculates scores and saves best parameters
    - Includes status endpoint for monitoring
 
-<img width="512" height="296" alt="unnamed (3)" src="https://github.com/user-attachments/assets/101b119b-0595-4747-8e50-6493e70b203f" />
+<img width="512" height="249" alt="unnamed (4)" src="https://github.com/user-attachments/assets/3a4ddf46-11f4-4b7e-9d0c-ff532f8d1b50" />
+
 
 **4. MT5 Expert Advisor (MQL5):**
 

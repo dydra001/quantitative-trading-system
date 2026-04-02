@@ -106,7 +106,28 @@ I built a complete optimization framework to find the best parameters for each i
 
 <img width="512" height="282" alt="unnamed" src="https://github.com/user-attachments/assets/193c26c0-daae-4a81-b558-9d6a58703f66" />
 
+**2. OPTIMIZATION EXECUTION:**
 
+I use the OptiPie Chrome extension which automates testing all 11,424 combinations per instrument. It loops through each combination, runs the backtest on TradingView, and records results.
+
+<img width="512" height="282" alt="unnamed (1)" src="https://github.com/user-attachments/assets/e2f12e05-e0ea-4f38-a451-76da98273452" />
+
+**3. SCORING ALGORITHM (Python Server):**
+
+   I built a Python Flask server that receives optimization results and calculates a score for each combination:
+
+   SCORE = (Profit Factor × 30) + (Win Rate × 25) + (Drawdown Score) + (Loss Streak Penalty) + (Trades / Max Trades × 20)
+
+   Where:
+   - Drawdown Score = 25 × (1 - MaxDD_USD / 250)
+   - Loss Streak Penalty: 1-2 losses = +5 | 3 losses = 0 | 4 losses = -5 | 5 losses = -10 |                   6 losses = -15 | 7+ losses = -25
+
+   This scoring system weights:
+   - Profitability (30%) - most important
+   - Win rate (25%) - Martingale needs >50%
+   - Drawdown (25%) - risk control
+   - Trade count (20%) - statistical significance
+   - Loss streak penalty - risk of blow-up
 
 
 **Key Features:**
